@@ -1,0 +1,99 @@
+# Real-time Optimization Configuration
+# Phase 4.2: Real-time Chunking and Embedding Optimization
+
+chunking:
+  # Real-time Chunk Processor
+  realtime_processor:
+    queue_size: 1000
+    priority_queue_size: 100
+    result_queue_size: 500
+    batch_size: 10
+    max_concurrent: 4
+    adaptive_threshold: true
+    quality_threshold: 0.7
+    max_chunk_size: 1000
+    min_chunk_size: 50
+    processing_timeout: 30.0
+    monitoring_interval: 5.0
+    optimization_interval: 60.0
+
+embedding:
+  # Dynamic Embedding Optimizer
+  dynamic_optimizer:
+    optimization_threshold: 0.1
+    optimization_interval: 60.0
+    quality_threshold: 0.7
+    speed_threshold: 2.0
+    memory_threshold: 0.8
+    model_switch_cooldown: 300.0
+    performance_window: 300.0
+    min_samples_for_optimization: 20
+
+storage:
+  # Streaming Vector Storage
+  streaming_storage:
+    buffer_size: 1000
+    batch_size: 50
+    flush_interval: 5.0
+    max_concurrent_streams: 10
+    quality_threshold: 0.7
+    compression_enabled: true
+    indexing_enabled: true
+    monitoring_interval: 10.0
+    auto_cleanup: true
+    cleanup_interval: 3600.0
+    max_session_duration: 3600.0
+
+monitoring:
+  # Performance Monitoring
+  performance_monitor:
+    metrics_collection_interval: 1.0
+    alert_thresholds:
+      error_rate: 0.05
+      processing_time: 5.0
+      queue_depth: 0.8
+      memory_usage: 0.9
+    dashboard_update_interval: 5.0
+    log_retention_days: 7
+
+system:
+  # System Configuration
+  max_memory_usage: 0.8
+  max_cpu_usage: 0.8
+  health_check_interval: 30.0
+  graceful_shutdown_timeout: 60.0
+  
+  # Integration with previous phases
+  phase_4_0_integration:
+    enabled: true
+    data_sync_interval: 300.0
+    
+  phase_4_1_integration:
+    enabled: true
+    quality_assurance_sync: true
+    chunking_strategy_sync: true
+
+alerts:
+  # Notification Configuration
+  email_notifications: true
+  webhook_notifications: true
+  slack_notifications: false
+  
+  alert_conditions:
+    high_error_rate: 0.1
+    low_quality_score: 0.5
+    high_processing_time: 10.0
+    memory_pressure: 0.9
+    queue_backlog: 100
+
+development:
+  # Development Settings
+  debug_mode: false
+  verbose_logging: false
+  mock_external_services: false
+  enable_profiling: false
+  
+  # Testing Configuration
+  test_data_size: 100
+  performance_test_samples: 50
+  load_test_duration: 300.0

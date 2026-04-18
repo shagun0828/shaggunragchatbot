@@ -1,0 +1,213 @@
+name: Daily Financial Data Ingest Pipeline
+
+# Trigger daily at 9:15 AM IST (3:45 AM UTC)
+on:
+  schedule:
+    - cron: '45 3 * * *'  # 3:45 AM UTC = 9:15 AM IST
+  workflow_dispatch:  # Allow manual triggering
+    inputs:
+      force_run:
+        description: 'Force run even if already executed today'
+        required: false
+        type: boolean
+        default: false
+      dry_run:
+        description: 'Dry run - do not upload to Chroma Cloud'
+        required: false
+        type: boolean
+        default: false
+      test_mode:
+        description: 'Run in test mode with limited URLs'
+        required: false
+        type: boolean
+        default: false
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '18'
+
+jobs:
+  daily-ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45  # Extended timeout for complete pipeline
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Full history for proper tracking
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+        cache-dependency-path: 'requirements.txt'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install aiohttp beautifulsoup4 requests lxml
+    
+    - name: Verify environment variables
+      run: |
+        echo "Checking required environment variables..."
+        if [ -z "${{ secrets.CHROMA_API_KEY }}" ]; then
+          echo "ERROR: CHROMA_API_KEY secret is not set"
+          exit 1
+        fi
+        echo "Environment variables verified successfully"
+    
+    - name: Create environment file
+      run: |
+        cat > .env << EOF
+        # Chroma Cloud Configuration
+        CHROMA_API_KEY=${{ secrets.CHROMA_API_KEY }}
+        CHROMA_TENANT=default
+        CHROMA_DATABASE=mutual-funds-db
+        CHROMA_HOST=https://api.trychroma.com
+        ENABLE_CHROMA_CLOUD=true
+        
+        # Pipeline Configuration
+        LOG_LEVEL=INFO
+        DEBUG_MODE=false
+        MOCK_EXTERNAL_SERVICES=false
+        TESTING=false
+        
+        # Performance Settings
+        MAX_CONCURRENT_THREADS=4
+        DEFAULT_BATCH_SIZE=32
+        MEMORY_LIMIT_MB=4096
+        
+        # Notification Settings
+        NOTIFICATION_WEBHOOK=${{ secrets.NOTIFICATION_WEBHOOK }}
+        EMAIL_NOTIFICATIONS=false
+        EOF
+        
+        echo "Environment file created successfully"
+    
+    - name: Check if already run today
+      id: check_run
+      run: |
+        TODAY=$(date +%Y-%m-%d)
+        LAST_RUN=$(git log --since="$TODAY" --grep="Daily ingest completed" --format=%h | head -n1)
+        
+        if [ -n "$LAST_RUN" ] && [ "${{ github.event.inputs.force_run }}" != "true" ]; then
+          echo "already_run=true" >> $GITHUB_OUTPUT
+          echo "Pipeline already run today. Use force_run=true to override."
+        else
+          echo "already_run=false" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Run Daily Ingest Pipeline
+      if: steps.check_run.outputs.already_run == 'false'
+      run: |
+        echo "Starting daily ingest pipeline at $(date)"
+        echo "Dry run: ${{ github.event.inputs.dry_run }}"
+        echo "Test mode: ${{ github.event.inputs.test_mode }}"
+        
+        # Set environment variables for pipeline
+        export DRY_RUN=${{ github.event.inputs.dry_run }}
+        export TEST_MODE=${{ github.event.inputs.test_mode }}
+        export RUN_DATE=$(date +%Y-%m-%d)
+        export RUN_ID=${{ github.run_id }}
+        
+        # Run the complete ingest pipeline
+        python src/daily_ingest_pipeline.py
+    
+    - name: Verify Chroma Cloud Upload
+      if: steps.check_run.outputs.already_run == 'false' && github.event.inputs.dry_run != 'true'
+      run: |
+        echo "Verifying Chroma Cloud upload..."
+        python src/verify_chroma_upload.py --date $(date +%Y-%m-%d)
+    
+    - name: Generate Pipeline Report
+      if: steps.check_run.outputs.already_run == 'false'
+      run: |
+        echo "Generating pipeline report..."
+        python src/generate_pipeline_report.py --date $(date +%Y-%m-%d) --output reports/daily_report_$(date +%Y-%m-%d).json
+    
+    - name: Upload Pipeline Artifacts
+      if: steps.check_run.outputs.already_run == 'false'
+      uses: actions/upload-artifact@v3
+      with:
+        name: pipeline-report-${{ github.run_number }}
+        path: |
+          reports/
+          logs/
+        retention-days: 30
+    
+    - name: Commit and Tag Success
+      if: steps.check_run.outputs.already_run == 'false'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # Create a tag for this run
+        TAG="daily-ingest-$(date +%Y-%m-%d)"
+        git tag -f $TAG
+        git push origin $TAG --force
+        
+        # Commit the report
+        git add reports/ 2>/dev/null || true
+        git commit -m "Daily ingest completed - $(date)" 2>/dev/null || true
+        git push origin main 2>/dev/null || true
+    
+    - name: Send Success Notification
+      if: steps.check_run.outputs.already_run == 'false'
+      run: |
+        echo "Sending success notification..."
+        python src/send_notification.py --status success --message "Daily ingest pipeline completed successfully at $(date)"
+    
+    - name: Send Failure Notification
+      if: failure()
+      run: |
+        echo "Sending failure notification..."
+        python src/send_notification.py --status failure --message "Daily ingest pipeline failed at $(date)"
+    
+    - name: Cleanup
+      if: always()
+      run: |
+        echo "Cleaning up temporary files..."
+        rm -f .env
+        rm -rf temp/
+        rm -rf logs/old/
+
+  health-check:
+    runs-on: ubuntu-latest
+    if: always() && needs.daily-ingest.result == 'success'
+    needs: daily-ingest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    
+    - name: Create environment file
+      run: |
+        cat > .env << EOF
+        CHROMA_API_KEY=${{ secrets.CHROMA_API_KEY }}
+        CHROMA_TENANT=default
+        CHROMA_DATABASE=mutual-funds-db
+        CHROMA_HOST=https://api.trychroma.com
+        ENABLE_CHROMA_CLOUD=true
+        EOF
+    
+    - name: Run Health Check
+      run: |
+        echo "Running system health check..."
+        python src/health_check.py --component chroma_cloud --component pipeline --component data_quality
+    
+    - name: Generate Health Report
+      run: |
+        echo "Generating health report..."
+        python src/health_check.py --report --output reports/health_report_$(date +%Y-%m-%d).json

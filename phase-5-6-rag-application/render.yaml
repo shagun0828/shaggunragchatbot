@@ -1,0 +1,72 @@
+services:
+  - type: web
+    name: rag-backend
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn src.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: "/api/v1/monitoring/health"
+    autoDeploy: true
+    
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: PORT
+        value: "8000"
+      
+      # Chroma Cloud Configuration
+      - key: CHROMA_API_KEY
+        sync: false
+      - key: CHROMA_TENANT
+        sync: false
+      - key: CHROMA_DATABASE
+        sync: false
+      - key: ENABLE_CHROMA_CLOUD
+        value: "true"
+      
+      # LLM Configuration
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: EMBEDDING_MODEL
+        value: "text-embedding-ada-002"
+      
+      # Application Configuration
+      - key: DEBUG
+        value: "false"
+      - key: LOG_LEVEL
+        value: "INFO"
+      - key: HOST
+        value: "0.0.0.0"
+      
+      # Monitoring Configuration
+      - key: ENABLE_METRICS
+        value: "true"
+      - key: METRICS_PORT
+        value: "9090"
+      
+      # WebSocket Configuration
+      - key: WEBSOCKET_HEARTBEAT_INTERVAL
+        value: "30"
+      - key: WEBSOCKET_CONNECTION_TIMEOUT
+        value: "3600"
+      
+      # Personalization Configuration
+      - key: ENABLE_PERSONALIZATION
+        value: "true"
+      - key: USER_PROFILE_TTL
+        value: "86400"
+      
+      # Rate Limiting
+      - key: RATE_LIMIT_REQUESTS
+        value: "100"
+      - key: RATE_LIMIT_WINDOW
+        value: "3600"
+    
+    # Add CORS settings
+    headers:
+      - name: Access-Control-Allow-Origin
+        value: "https://rag-frontend.vercel.app"
+      - name: Access-Control-Allow-Methods
+        value: "GET, POST, PUT, DELETE, OPTIONS"
+      - name: Access-Control-Allow-Headers
+        value: "Content-Type, Authorization"

@@ -1,0 +1,43 @@
+2026-04-18 19:41:04 | INFO     | SimpleScheduler | __init__:73 | Simple Scheduler Logger initialized - Log file: logs\simple_scheduler_20260418_194104.log
+2026-04-18 19:41:04 | INFO     | SimpleScheduler | log_system_info:149 | System Information: {
+  "platform": "Windows-10-10.0.19045-SP0",
+  "python_version": "3.14.3",
+  "timestamp": "2026-04-18T19:41:04.308864"
+}
+2026-04-18 19:41:04 | INFO     | SimpleScheduler | log_environment:169 | Environment Configuration: {
+  "chroma_enabled": false,
+  "chroma_tenant": "default",
+  "chroma_database": "mutual-funds-db",
+  "openai_enabled": false,
+  "embedding_model": "N/A",
+  "timestamp": "2026-04-18T19:41:04.309544"
+}
+2026-04-18 19:41:04 | INFO     | SimpleScheduler | run_complete_pipeline:234 | Starting complete pipeline run: simple_run_20260418_194104
+2026-04-18 19:41:04 | INFO     | SimpleScheduler | log_phase_start:114 | Starting phase: health_check
+2026-04-18 19:41:04 | INFO     | SimpleScheduler | _health_check_phase:324 | Running health check phase...
+2026-04-18 19:41:04 | INFO     | SimpleScheduler | _health_check_phase:352 | Health check completed
+2026-04-18 19:41:04 | INFO     | SimpleScheduler | log_phase_end:132 | Phase health_check completed successfully in 0.01s
+2026-04-18 19:41:04 | INFO     | SimpleScheduler | log_phase_end:137 | Phase health_check metrics: {
+  "overall_health": "unknown",
+  "overall_health_score": 75.0,
+  "components_checked": 4,
+  "healthy_components": 3,
+  "unhealthy_components": 1
+}
+2026-04-18 19:41:04 | INFO     | SimpleScheduler | log_phase_start:114 | Starting phase: data_ingestion
+2026-04-18 19:41:04 | INFO     | SimpleScheduler | _data_ingestion_phase:361 | Running data ingestion phase...
+2026-04-18 19:41:04 | ERROR    | SimpleScheduler | _data_ingestion_phase:385 | Data ingestion failed: 'DailyIngestPipeline' object has no attribute 'run_complete_pipeline'
+2026-04-18 19:41:04 | ERROR    | SimpleScheduler | log_phase_end:134 | Phase data_ingestion failed after 0.00s: 'DailyIngestPipeline' object has no attribute 'run_complete_pipeline'
+2026-04-18 19:41:04 | ERROR    | SimpleScheduler | run_complete_pipeline:265 | Pipeline run failed: 'DailyIngestPipeline' object has no attribute 'run_complete_pipeline'
+2026-04-18 19:41:04 | ERROR    | SimpleScheduler | run_complete_pipeline:266 | Traceback: Traceback (most recent call last):
+  File "C:\Users\LENOVO\Desktop\2nd LIP\phase-4.3-multi-model-v2\src\simple_local_scheduler.py", line 241, in run_complete_pipeline
+    await self._run_phase("data_ingestion", self._data_ingestion_phase)
+  File "C:\Users\LENOVO\Desktop\2nd LIP\phase-4.3-multi-model-v2\src\simple_local_scheduler.py", line 286, in _run_phase
+    metrics = await phase_func()
+              ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\LENOVO\Desktop\2nd LIP\phase-4.3-multi-model-v2\src\simple_local_scheduler.py", line 365, in _data_ingestion_phase
+    ingestion_result = await self.pipeline.run_complete_pipeline()
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DailyIngestPipeline' object has no attribute 'run_complete_pipeline'
+
+2026-04-18 19:41:04 | INFO     | SimpleScheduler | save_json_log:182 | JSON log saved to: logs\simple_scheduler_20260418_194104.json

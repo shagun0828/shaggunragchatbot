@@ -1,0 +1,211 @@
+# Advanced Chunking Configuration
+# Phase 4.1: Enhanced Chunking and Embedding
+
+chunking:
+  # Enhanced Semantic Chunker
+  semantic_chunker:
+    model_name: "sentence-transformers/all-MiniLM-L6-v2"
+    base_similarity_threshold: 0.7
+    max_chunk_size: 1000
+    min_chunk_size: 100
+    max_chunk_overlap: 0.3
+    adaptive_threshold: true
+    diversity_penalty: 0.1
+    length_penalty: 0.05
+    
+  # Recursive Character Splitter
+  recursive_splitter:
+    max_chunk_size: 1000
+    min_chunk_size: 50
+    chunk_overlap: 0.1
+    financial_separators:
+      - pattern: "(?<=\\d+\\.?\\d*%)\\s"
+        priority: 1.5
+        description: "After percentage values"
+      - pattern: "(?<=\\d+\\.\\d+ Cr)\\s"
+        priority: 1.5
+        description: "After crore amounts"
+      - pattern: "(?<=\\d+\\.\\d+ L)\\s"
+        priority: 1.5
+        description: "After lakh amounts"
+      - pattern: "(?<=Rs\\.\\s*\\d+\\.?\\d*)\\s"
+        priority: 1.5
+        description: "After rupee amounts"
+    
+  # Mutual Fund Chunker v2
+  mutual_fund_chunker:
+    section_configs:
+      basic_info:
+        fields: ["fund_name", "category", "risk_level", "aum", "fund_manager", "inception_date"]
+        chunking_strategy: "structured"
+        priority: 1
+        max_chunk_size: 800
+        min_chunk_size: 50
+      
+      performance:
+        fields: ["nav", "returns", "expense_ratio", "benchmark_performance"]
+        chunking_strategy: "structured_numeric"
+        priority: 2
+        max_chunk_size: 800
+        min_chunk_size: 50
+      
+      holdings:
+        fields: ["top_holdings", "portfolio_composition", "holding_analysis"]
+        chunking_strategy: "tabular"
+        priority: 3
+        max_chunk_size: 800
+        min_chunk_size: 50
+      
+      allocation:
+        fields: ["sector_allocation", "asset_allocation", "geographic_allocation"]
+        chunking_strategy: "allocation"
+        priority: 4
+        max_chunk_size: 800
+        min_chunk_size: 50
+      
+      risk_analysis:
+        fields: ["risk_metrics", "volatility", "drawdown", "risk_adjusted_returns"]
+        chunking_strategy: "analytical"
+        priority: 5
+        max_chunk_size: 800
+        min_chunk_size: 50
+      
+      tax_info:
+        fields: ["tax_implications", "exit_load", "tax_saving_benefits"]
+        chunking_strategy: "tax"
+        priority: 6
+        max_chunk_size: 800
+        min_chunk_size: 50
+      
+      description:
+        fields: ["description", "investment_objective", "strategy"]
+        chunking_strategy: "semantic"
+        priority: 7
+        max_chunk_size: 800
+        min_chunk_size: 50
+
+embedding:
+  # Enhanced Financial Embedder
+  financial_embedder:
+    base_model: "sentence-transformers/all-MiniLM-L6-v2"
+    enhancement_strength: 0.3
+    context_awareness: true
+    terminology_boost: 0.2
+    
+    context_categories:
+      performance:
+        keywords: ["return", "nav", "growth", "performance", "benchmark"]
+        weight: 0.25
+      
+      risk:
+        keywords: ["risk", "volatility", "beta", "drawdown", "loss"]
+        weight: 0.20
+      
+      portfolio:
+        keywords: ["holding", "allocation", "portfolio", "sector", "asset"]
+        weight: 0.20
+      
+      fundamentals:
+        keywords: ["aum", "expense", "manager", "inception", "category"]
+        weight: 0.15
+      
+      investment:
+        keywords: ["investment", "sip", "lumpsum", "minimum", "exit"]
+        weight: 0.10
+      
+      tax:
+        keywords: ["tax", "elss", "saving", "deduction", "benefit"]
+        weight: 0.10
+  
+  # Embedding Quality Checker
+  quality_checker:
+    similarity_threshold: 0.95
+    variance_threshold: 0.01
+    outlier_threshold: 3.0
+    
+    quality_weights:
+      duplicate_penalty: 0.3
+      variance_penalty: 0.2
+      outlier_penalty: 0.2
+      coverage_bonus: 0.15
+      balance_bonus: 0.15
+
+storage:
+  # Advanced Vector Storage
+  vector_storage:
+    batch_size: 100
+    max_retries: 3
+    retry_delay: 1.0
+    min_quality_score: 0.7
+    auto_fix_quality: true
+    
+    quality_fixes:
+      low_variance:
+        enabled: true
+        noise_level: 0.01
+        min_variance_threshold: 0.01
+      
+      outlier:
+        enabled: true
+        max_norm_threshold: 2.0
+        min_norm_threshold: 0.5
+        target_norm: 1.0
+    
+    cleanup:
+      auto_cleanup: true
+      retention_days: 30
+
+processing:
+  # Data Processing Pipeline
+  pipeline:
+    enable_quality_assurance: true
+    enable_financial_enhancement: true
+    enable_auto_fixing: true
+    
+    batch_processing:
+      enabled: true
+      batch_size: 50
+      parallel_workers: 4
+    
+    validation:
+      min_chunk_length: 30
+      max_chunk_length: 2000
+      required_metadata_fields: ["fund_name", "section_type"]
+      
+      content_validation:
+        min_financial_keywords: 1
+        forbidden_patterns: ["click here", "read more", "n/a"]
+
+monitoring:
+  # Monitoring and Logging
+  logging:
+    level: "INFO"
+    format: "json"
+    file_path: "logs/chunking_embedding.log"
+    
+  metrics:
+    track_quality_scores: true
+    track_processing_time: true
+    track_batch_performance: true
+    
+  alerts:
+    quality_score_threshold: 0.6
+    failure_rate_threshold: 0.1
+    processing_time_threshold: 300  # seconds
+
+testing:
+  # Testing Configuration
+  unit_tests:
+    enabled: true
+    coverage_threshold: 0.8
+    
+  integration_tests:
+    enabled: true
+    test_data_size: 100
+    
+  quality_tests:
+    enabled: true
+    test_quality_thresholds:
+      min_overall_score: 0.7
+      max_duplicate_rate: 0.05
+      max_outlier_rate: 0.1

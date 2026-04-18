@@ -1,0 +1,313 @@
+# Multi-Model Processing Configuration for Phase 4.3 v2
+# Intelligent coordination between BGE-base and BGE-small models
+
+multi_model:
+  # Multi-Model Coordinator Configuration
+  processing_strategy: "adaptive"  # sequential, parallel, hybrid, adaptive
+  coordination_mode: "balanced"  # quality_focused, speed_focused, balanced, resource_optimized
+  enable_parallel_processing: true
+  max_concurrent_models: 2
+  quality_threshold: 0.7
+  enable_quality_assessment: true
+  enable_performance_monitoring: true
+  enable_adaptive_routing: true
+  enable_load_balancing: true
+  retry_attempts: 3
+  retry_delay: 1.0
+  timeout_per_url: 30.0
+
+bge_base:
+  # BGE-base Configuration (for 20 URLs)
+  model_name: "bge-base-en-v1.5"
+  max_urls: 20
+  batch_size: 16
+  quality_threshold: 0.8
+  dimension: 768
+  
+  # Processing Configuration
+  enhancement_enabled: true
+  normalization_enabled: true
+  cache_embeddings: true
+  memory_limit_mb: 2048
+  quality_assessment: true
+  financial_enhancement: true
+  
+  # Financial Enhancement
+  financial_enhancement:
+    enabled: true
+    enhancement_factor: 0.2
+    vocabulary_size: 100
+    domain_weights:
+      performance: 0.25
+      risk: 0.20
+      portfolio: 0.20
+      fundamentals: 0.15
+      investment: 0.10
+      market: 0.10
+
+bge_small:
+  # BGE-small Configuration (for 5 URLs)
+  model_name: "bge-small-en-v1.5"
+  max_urls: 5
+  batch_size: 32
+  quality_threshold: 0.7
+  dimension: 384
+  
+  # Processing Configuration
+  enhancement_enabled: true
+  normalization_enabled: true
+  cache_embeddings: true
+  memory_limit_mb: 1024
+  processing_mode: "fast"  # fast, balanced, quality
+  lightweight_enhancement: true
+  quality_assessment: true
+  
+  # Lightweight Enhancement
+  lightweight_enhancement:
+    enabled: true
+    enhancement_factor: 0.1
+    keyword_count: 16
+    fast_processing: true
+
+router:
+  # Intelligent URL Router Configuration
+  enable_caching: true
+  cache_size: 1000
+  default_model: "bge_small"
+  
+  # Complexity Thresholds
+  complexity_thresholds:
+    low: 0.3
+    medium: 0.6
+    high: 0.8
+    very_high: 0.9
+  
+  # Model Limits
+  model_limits:
+    bge_base_max_urls: 20
+    bge_small_max_urls: 5
+    total_capacity: 25
+  
+  # Priority Weights
+  priority_weights:
+    content_type: 0.4
+    complexity: 0.3
+    financial_relevance: 0.2
+    domain_authority: 0.1
+  
+  # URL Patterns for Content Classification
+  url_patterns:
+    mutual_fund:
+      - "groww\\.in/mutual-funds"
+      - "moneycontrol\\.com/mutual-funds"
+      - "valueresearchonline\\.com/funds"
+      - "morningstar\\.in/funds"
+      - "fundsupermart\\.com"
+      - "etmoney\\.com/mutual-funds"
+      - "zerodha\\.com/mutual-funds"
+      - "icicidirect\\.com/mutual-funds"
+      - "hdfcsec\\.com/mutual-funds"
+      - "axisdirect\\.in/mutual-funds"
+    
+    financial_news:
+      - "economictimes\\.indiatimes\\.com"
+      - "livemint\\.com"
+      - "business-standard\\.com"
+      - "financial-express\\.com"
+      - "moneycontrol\\.com/news"
+      - "ndtv\\.com/business"
+      - "thehindubusinessline\\.com"
+      - "bsiness\\.in"
+      - "vccircle\\.com"
+      - "yourstory\\.com"
+    
+    market_data:
+      - "nseindia\\.com"
+      - "bseindia\\.com"
+      - "moneycontrol\\.com/stock-price"
+      - "economicstimes\\.com/markets"
+      - "livemint\\.com/market"
+      - "ndtv\\.com/business/markets"
+      - "business-standard\\.com/markets"
+      - "financial-express\\.com/market"
+    
+    company_data:
+      - "annualreports\\.com"
+      - "investor\\.bseindia\\.com"
+      - "nseindia\\.com/companies"
+      - "rbi\\.org\\.in"
+      - "sebi\\.gov\\.in"
+      - "mca\\.gov\\.in"
+      - "bseindia\\.com/corporates"
+      - "nseindia\\.com/corporate-actions"
+    
+    general_financial:
+      - "bankbazaar\\.com"
+      - "paisabazaar\\.com"
+      - "policybazaar\\.com"
+      - "coverfox\\.com"
+      - "acko\\.com"
+      - "digit\\.insurance"
+
+processing:
+  # Processing Configuration
+  enable_async_processing: true
+  max_concurrent_batches: 4
+  batch_timeout: 300.0
+  retry_attempts: 3
+  retry_delay: 1.0
+  
+  # Quality Control
+  quality_control:
+    enable_quality_assessment: true
+    min_quality_score: 0.6
+    enable_auto_fix: true
+    quality_thresholds:
+      excellent: 0.9
+      good: 0.7
+      acceptable: 0.5
+      poor: 0.3
+  
+  # Performance Optimization
+  performance:
+    enable_performance_monitoring: true
+    metrics_collection_interval: 5.0
+    enable_alerts: true
+    resource_optimization: true
+
+monitoring:
+  # Monitoring Configuration
+  enable_performance_monitoring: true
+  metrics_collection_interval: 5.0
+  enable_alerts: true
+  
+  # Alert Thresholds
+  alert_thresholds:
+    processing_time: 30.0
+    error_rate: 0.05
+    quality_drop: 0.2
+    memory_usage: 0.8
+    coordination_overhead: 0.3
+    routing_efficiency: 0.7
+  
+  # Metrics Tracking
+  metrics:
+    track_throughput: true
+    track_quality_scores: true
+    track_model_utilization: true
+    track_processing_time: true
+    track_coordination_efficiency: true
+    track_routing_decisions: true
+
+development:
+  # Development Settings
+  debug_mode: false
+  verbose_logging: false
+  enable_profiling: false
+  
+  # Testing Configuration
+  test_data:
+    sample_urls_count: 25
+    mutual_fund_urls: 20
+    financial_news_urls: 5
+    content_length_range: [500, 2000]
+  
+  # Performance Testing
+  performance_test:
+    enable_load_testing: false
+    load_test_duration: 300.0
+    concurrent_requests: 10
+
+coordination:
+  # Coordination Settings
+  enable_adaptive_strategy: true
+  enable_load_balancing: true
+  enable_quality_consistency_check: true
+  enable_resource_optimization: true
+  
+  # Strategy Selection
+  strategy_selection:
+    sequential_threshold: 5
+    parallel_threshold: 15
+    hybrid_threshold: 10
+  
+  # Mode Selection
+  mode_selection:
+    quality_focused_threshold: 0.8
+    speed_focused_threshold: 0.5
+    balanced_threshold: 0.7
+
+quality_management:
+  # Quality Management Settings
+  enable_quality_assessment: true
+  enable_quality_consistency: true
+  enable_quality_improvement: true
+  
+  # Quality Thresholds
+  quality_thresholds:
+    minimum_acceptable: 0.5
+    good_quality: 0.7
+    excellent_quality: 0.85
+    quality_drop_threshold: 0.2
+    consistency_threshold: 0.1
+  
+  # Quality Metrics
+  quality_metrics:
+    length_weight: 0.3
+    financial_content_weight: 0.4
+    embedding_norm_weight: 0.2
+    semantic_coherence_weight: 0.1
+
+error_handling:
+  # Error Handling Configuration
+  enable_error_recovery: true
+  enable_fallback_models: true
+  enable_retry_mechanisms: true
+  
+  # Error Types
+  network_errors:
+    retry: true
+    max_retries: 3
+    backoff_factor: 2.0
+  
+  memory_errors:
+    retry: true
+    batch_size_reduction: 0.5
+    max_retries: 2
+  
+  quality_errors:
+    retry: false
+    fallback_model: true
+    quality_adjustment: true
+  
+  timeout_errors:
+    retry: true
+    timeout_increase: 1.5
+    max_retries: 2
+
+performance_optimization:
+  # Performance Optimization Settings
+  enable_caching: true
+  enable_batch_optimization: true
+  enable_memory_optimization: true
+  enable_parallel_processing: true
+  
+  # Caching
+  caching:
+    enable_embedding_cache: true
+    enable_routing_cache: true
+    cache_size: 1000
+    cache_ttl: 3600
+  
+  # Memory Management
+  memory:
+    enable_memory_monitoring: true
+    memory_limit_mb: 4096
+    gc_threshold: 0.8
+  
+  # Batch Optimization
+  batching:
+    enable_dynamic_batch_sizing: true
+    min_batch_size: 8
+    max_batch_size: 64
+    optimal_batch_size: 32

@@ -1,0 +1,146 @@
+2026-04-18 19:41:48 | INFO     | SimpleScheduler | __init__:73 | Simple Scheduler Logger initialized - Log file: logs\simple_scheduler_20260418_194148.log
+2026-04-18 19:41:49 | INFO     | SimpleScheduler | log_system_info:149 | System Information: {
+  "platform": "Windows-10-10.0.19045-SP0",
+  "python_version": "3.14.3",
+  "timestamp": "2026-04-18T19:41:49.157854"
+}
+2026-04-18 19:41:49 | INFO     | SimpleScheduler | log_environment:169 | Environment Configuration: {
+  "chroma_enabled": false,
+  "chroma_tenant": "default",
+  "chroma_database": "mutual-funds-db",
+  "openai_enabled": false,
+  "embedding_model": "N/A",
+  "timestamp": "2026-04-18T19:41:49.158683"
+}
+2026-04-18 19:41:49 | INFO     | SimpleScheduler | run_complete_pipeline:234 | Starting complete pipeline run: simple_run_20260418_194149
+2026-04-18 19:41:49 | INFO     | SimpleScheduler | log_phase_start:114 | Starting phase: health_check
+2026-04-18 19:41:49 | INFO     | SimpleScheduler | _health_check_phase:324 | Running health check phase...
+2026-04-18 19:41:49 | INFO     | SimpleScheduler | _health_check_phase:352 | Health check completed
+2026-04-18 19:41:49 | INFO     | SimpleScheduler | log_phase_end:132 | Phase health_check completed successfully in 0.01s
+2026-04-18 19:41:49 | INFO     | SimpleScheduler | log_phase_end:137 | Phase health_check metrics: {
+  "overall_health": "unknown",
+  "overall_health_score": 75.0,
+  "components_checked": 4,
+  "healthy_components": 3,
+  "unhealthy_components": 1
+}
+2026-04-18 19:41:49 | INFO     | SimpleScheduler | log_phase_start:114 | Starting phase: data_ingestion
+2026-04-18 19:41:49 | INFO     | SimpleScheduler | _data_ingestion_phase:361 | Running data ingestion phase...
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | _data_ingestion_phase:381 | Data ingestion completed
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | log_phase_end:132 | Phase data_ingestion completed successfully in 13.88s
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | log_phase_end:137 | Phase data_ingestion metrics: {
+  "scraped_articles": 0,
+  "processed_articles": 0,
+  "embedded_documents": 0,
+  "uploaded_documents": 0,
+  "failed_uploads": 0,
+  "processing_time": 0,
+  "errors": 0
+}
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | log_phase_start:114 | Starting phase: upload_verification
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | _upload_verification_phase:390 | Running upload verification phase...
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | _upload_verification_phase:408 | Upload verification completed
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | log_phase_end:132 | Phase upload_verification completed successfully in 0.00s
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | log_phase_end:137 | Phase upload_verification metrics: {
+  "total_verified": 0,
+  "verification_passed": 0,
+  "verification_failed": 0,
+  "chroma_collection_size": 0,
+  "sample_queries_tested": 0,
+  "avg_similarity_score": 0
+}
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | log_phase_start:114 | Starting phase: report_generation
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | _report_generation_phase:418 | Running report generation phase...
+2026-04-18 19:42:03 | ERROR    | SimpleScheduler | _report_generation_phase:439 | Report generation failed: PipelineReportGenerator.generate_report() missing 1 required positional argument: 'date'
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | log_phase_end:132 | Phase report_generation completed successfully in 0.00s
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | log_phase_end:137 | Phase report_generation metrics: {
+  "error": "PipelineReportGenerator.generate_report() missing 1 required positional argument: 'date'"
+}
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | log_phase_start:114 | Starting phase: notification
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | _notification_phase:445 | Running notification phase...
+2026-04-18 19:42:03 | ERROR    | SimpleScheduler | _notification_phase:462 | Notification phase failed: 'NotificationSender' object has no attribute 'send_completion_notification'
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | log_phase_end:132 | Phase notification completed successfully in 0.00s
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | log_phase_end:137 | Phase notification metrics: {
+  "error": "'NotificationSender' object has no attribute 'send_completion_notification'"
+}
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | log_summary:196 | Scheduler Run Summary: {
+  "run_id": "simple_run_20260418_194149",
+  "total_duration": 13.904587745666504,
+  "status": "completed",
+  "success_count": 5,
+  "error_count": 0,
+  "phases": [
+    {
+      "name": "health_check",
+      "start_time": 1776521509.1600187,
+      "end_time": 1776521509.174114,
+      "status": "completed",
+      "error_message": null,
+      "metrics": {
+        "overall_health": "unknown",
+        "overall_health_score": 75.0,
+        "components_checked": 4,
+        "healthy_components": 3,
+        "unhealthy_components": 1
+      },
+      "duration": 0.014095306396484375
+    },
+    {
+      "name": "data_ingestion",
+      "start_time": 1776521509.1745427,
+      "end_time": 1776521523.057812,
+      "status": "completed",
+      "error_message": null,
+      "metrics": {
+        "scraped_articles": 0,
+        "processed_articles": 0,
+        "embedded_documents": 0,
+        "uploaded_documents": 0,
+        "failed_uploads": 0,
+        "processing_time": 0,
+        "errors": 0
+      },
+      "duration": 13.883269309997559
+    },
+    {
+      "name": "upload_verification",
+      "start_time": 1776521523.0582309,
+      "end_time": 1776521523.0604482,
+      "status": "completed",
+      "error_message": null,
+      "metrics": {
+        "total_verified": 0,
+        "verification_passed": 0,
+        "verification_failed": 0,
+        "chroma_collection_size": 0,
+        "sample_queries_tested": 0,
+        "avg_similarity_score": 0
+      },
+      "duration": 0.0022172927856445312
+    },
+    {
+      "name": "report_generation",
+      "start_time": 1776521523.0610864,
+      "end_time": 1776521523.0618346,
+      "status": "completed",
+      "error_message": null,
+      "metrics": {
+        "error": "PipelineReportGenerator.generate_report() missing 1 required positional argument: 'date'"
+      },
+      "duration": 0.0007481575012207031
+    },
+    {
+      "name": "notification",
+      "start_time": 1776521523.0625167,
+      "end_time": 1776521523.0636191,
+      "status": "completed",
+      "error_message": null,
+      "metrics": {
+        "error": "'NotificationSender' object has no attribute 'send_completion_notification'"
+      },
+      "duration": 0.001102447509765625
+    }
+  ],
+  "timestamp": "2026-04-18T19:42:03.064305"
+}
+2026-04-18 19:42:03 | INFO     | SimpleScheduler | save_json_log:182 | JSON log saved to: logs\simple_scheduler_20260418_194148.json

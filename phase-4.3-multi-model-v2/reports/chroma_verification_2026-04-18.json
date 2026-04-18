@@ -1,0 +1,29 @@
+{
+  "mutual_funds_v1": {
+    "status": "verified",
+    "document_count": 0,
+    "recent_documents": 0,
+    "created_at": 1776519381.9502954
+  },
+  "financial_news_v1": {
+    "status": "verified",
+    "document_count": 0,
+    "recent_documents": 0,
+    "created_at": 1776519381.988398
+  },
+  "overall": {
+    "status": "completed",
+    "health_status": "healthy",
+    "total_documents": 0,
+    "collections": [
+      "mutual_funds_v1",
+      "financial_news_v1"
+    ],
+    "search_test": {
+      "status": "success",
+      "results_found": 0,
+      "sample_distances": []
+    },
+    "verification_date": "2026-04-18"
+  }
+}

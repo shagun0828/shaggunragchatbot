@@ -1,0 +1,207 @@
+[
+  {
+    "timestamp": "2026-04-18T19:41:49.158427",
+    "event": "system_info",
+    "info": {
+      "platform": "Windows-10-10.0.19045-SP0",
+      "python_version": "3.14.3",
+      "timestamp": "2026-04-18T19:41:49.157854"
+    }
+  },
+  {
+    "timestamp": "2026-04-18T19:41:49.159469",
+    "event": "environment",
+    "config": {
+      "chroma_enabled": false,
+      "chroma_tenant": "default",
+      "chroma_database": "mutual-funds-db",
+      "openai_enabled": false,
+      "embedding_model": "N/A",
+      "timestamp": "2026-04-18T19:41:49.158683"
+    }
+  },
+  {
+    "timestamp": "2026-04-18T19:41:49.160037",
+    "event": "phase_start",
+    "phase": "health_check",
+    "metrics": {}
+  },
+  {
+    "timestamp": "2026-04-18T19:41:49.174124",
+    "event": "phase_end",
+    "phase": "health_check",
+    "status": "completed",
+    "duration": 0.014095306396484375,
+    "metrics": {
+      "overall_health": "unknown",
+      "overall_health_score": 75.0,
+      "components_checked": 4,
+      "healthy_components": 3,
+      "unhealthy_components": 1
+    },
+    "error": null
+  },
+  {
+    "timestamp": "2026-04-18T19:41:49.174559",
+    "event": "phase_start",
+    "phase": "data_ingestion",
+    "metrics": {}
+  },
+  {
+    "timestamp": "2026-04-18T19:42:03.057828",
+    "event": "phase_end",
+    "phase": "data_ingestion",
+    "status": "completed",
+    "duration": 13.883269309997559,
+    "metrics": {
+      "scraped_articles": 0,
+      "processed_articles": 0,
+      "embedded_documents": 0,
+      "uploaded_documents": 0,
+      "failed_uploads": 0,
+      "processing_time": 0,
+      "errors": 0
+    },
+    "error": null
+  },
+  {
+    "timestamp": "2026-04-18T19:42:03.058239",
+    "event": "phase_start",
+    "phase": "upload_verification",
+    "metrics": {}
+  },
+  {
+    "timestamp": "2026-04-18T19:42:03.060458",
+    "event": "phase_end",
+    "phase": "upload_verification",
+    "status": "completed",
+    "duration": 0.0022172927856445312,
+    "metrics": {
+      "total_verified": 0,
+      "verification_passed": 0,
+      "verification_failed": 0,
+      "chroma_collection_size": 0,
+      "sample_queries_tested": 0,
+      "avg_similarity_score": 0
+    },
+    "error": null
+  },
+  {
+    "timestamp": "2026-04-18T19:42:03.061093",
+    "event": "phase_start",
+    "phase": "report_generation",
+    "metrics": {}
+  },
+  {
+    "timestamp": "2026-04-18T19:42:03.061841",
+    "event": "phase_end",
+    "phase": "report_generation",
+    "status": "completed",
+    "duration": 0.0007481575012207031,
+    "metrics": {
+      "error": "PipelineReportGenerator.generate_report() missing 1 required positional argument: 'date'"
+    },
+    "error": null
+  },
+  {
+    "timestamp": "2026-04-18T19:42:03.062528",
+    "event": "phase_start",
+    "phase": "notification",
+    "metrics": {}
+  },
+  {
+    "timestamp": "2026-04-18T19:42:03.063631",
+    "event": "phase_end",
+    "phase": "notification",
+    "status": "completed",
+    "duration": 0.001102447509765625,
+    "metrics": {
+      "error": "'NotificationSender' object has no attribute 'send_completion_notification'"
+    },
+    "error": null
+  },
+  {
+    "timestamp": "2026-04-18T19:42:03.064932",
+    "event": "run_summary",
+    "summary": {
+      "run_id": "simple_run_20260418_194149",
+      "total_duration": 13.904587745666504,
+      "status": "completed",
+      "success_count": 5,
+      "error_count": 0,
+      "phases": [
+        {
+          "name": "health_check",
+          "start_time": 1776521509.1600187,
+          "end_time": 1776521509.174114,
+          "status": "completed",
+          "error_message": null,
+          "metrics": {
+            "overall_health": "unknown",
+            "overall_health_score": 75.0,
+            "components_checked": 4,
+            "healthy_components": 3,
+            "unhealthy_components": 1
+          },
+          "duration": 0.014095306396484375
+        },
+        {
+          "name": "data_ingestion",
+          "start_time": 1776521509.1745427,
+          "end_time": 1776521523.057812,
+          "status": "completed",
+          "error_message": null,
+          "metrics": {
+            "scraped_articles": 0,
+            "processed_articles": 0,
+            "embedded_documents": 0,
+            "uploaded_documents": 0,
+            "failed_uploads": 0,
+            "processing_time": 0,
+            "errors": 0
+          },
+          "duration": 13.883269309997559
+        },
+        {
+          "name": "upload_verification",
+          "start_time": 1776521523.0582309,
+          "end_time": 1776521523.0604482,
+          "status": "completed",
+          "error_message": null,
+          "metrics": {
+            "total_verified": 0,
+            "verification_passed": 0,
+            "verification_failed": 0,
+            "chroma_collection_size": 0,
+            "sample_queries_tested": 0,
+            "avg_similarity_score": 0
+          },
+          "duration": 0.0022172927856445312
+        },
+        {
+          "name": "report_generation",
+          "start_time": 1776521523.0610864,
+          "end_time": 1776521523.0618346,
+          "status": "completed",
+          "error_message": null,
+          "metrics": {
+            "error": "PipelineReportGenerator.generate_report() missing 1 required positional argument: 'date'"
+          },
+          "duration": 0.0007481575012207031
+        },
+        {
+          "name": "notification",
+          "start_time": 1776521523.0625167,
+          "end_time": 1776521523.0636191,
+          "status": "completed",
+          "error_message": null,
+          "metrics": {
+            "error": "'NotificationSender' object has no attribute 'send_completion_notification'"
+          },
+          "duration": 0.001102447509765625
+        }
+      ],
+      "timestamp": "2026-04-18T19:42:03.064305"
+    }
+  }
+]

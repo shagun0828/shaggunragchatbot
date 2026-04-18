@@ -1,0 +1,175 @@
+# Multi-Model Processing Configuration
+# Phase 4.3: BGE-base and BGE-small coordination
+
+multi_model:
+  # Multi-Model Processor Configuration
+  enable_parallel_processing: true
+  max_concurrent_models: 2
+  quality_threshold: 0.7
+  enable_model_comparison: true
+  optimize_batch_order: true
+  
+  # Model Limits
+  model_limits:
+    bge_base_max_urls: 20
+    bge_small_max_urls: 5
+    total_capacity: 25
+
+bge_base:
+  # BGE-base Configuration (for 20 URLs)
+  model_name: "bge-base-en-v1.5"
+  max_urls: 20
+  batch_size: 16
+  quality_threshold: 0.8
+  dimension: 768
+  
+  # Processing Configuration
+  enhancement_enabled: true
+  normalization_enabled: true
+  cache_embeddings: true
+  memory_limit_mb: 2048
+  
+  # Financial Enhancement
+  financial_enhancement:
+    enabled: true
+    enhancement_factor: 0.2
+    vocabulary_size: 100
+    domain_weights:
+      performance: 0.25
+      risk: 0.20
+      portfolio: 0.20
+      fundamentals: 0.15
+      investment: 0.10
+      market: 0.10
+
+bge_small:
+  # BGE-small Configuration (for 5 URLs)
+  model_name: "bge-small-en-v1.5"
+  max_urls: 5
+  batch_size: 32
+  quality_threshold: 0.7
+  dimension: 384
+  
+  # Processing Configuration
+  enhancement_enabled: true
+  normalization_enabled: true
+  cache_embeddings: true
+  memory_limit_mb: 1024
+  fast_mode: true
+  
+  # Lightweight Enhancement
+  lightweight_enhancement:
+    enabled: true
+    enhancement_factor: 0.1
+    keyword_count: 16
+    fast_processing: true
+
+router:
+  # URL Model Router Configuration
+  enable_caching: true
+  cache_size: 1000
+  default_model: "bge_small"
+  
+  # Complexity Thresholds
+  complexity_thresholds:
+    low: 0.3
+    medium: 0.6
+    high: 0.8
+  
+  # URL Patterns
+  url_patterns:
+    mutual_fund:
+      - "groww\\.in/mutual-funds"
+      - "moneycontrol\\.com/mutual-funds"
+      - "valueresearchonline\\.com/funds"
+      - "morningstar\\.in/funds"
+    
+    financial_news:
+      - "economictimes\\.indiatimes\\.com"
+      - "livemint\\.com"
+      - "business-standard\\.com"
+      - "financial-express\\.com"
+    
+    stock_market:
+      - "nseindia\\.com"
+      - "bseindia\\.com"
+      - "moneycontrol\\.com/stock-price"
+      - "economicstimes\\.com/markets"
+    
+    company_data:
+      - "annualreports\\.com"
+      - "investor\\.bseindia\\.com"
+      - "nseindia\\.com/companies"
+      - "rbi\\.org\\.in"
+
+processing:
+  # Processing Configuration
+  enable_async_processing: true
+  max_concurrent_batches: 4
+  batch_timeout: 300.0
+  retry_attempts: 3
+  retry_delay: 1.0
+  
+  # Quality Control
+  quality_control:
+    enable_quality_assessment: true
+    min_quality_score: 0.6
+    enable_auto_fix: true
+    quality_thresholds:
+      excellent: 0.9
+      good: 0.7
+      acceptable: 0.5
+      poor: 0.3
+
+monitoring:
+  # Monitoring Configuration
+  enable_performance_monitoring: true
+  metrics_collection_interval: 5.0
+  enable_alerts: true
+  
+  # Alert Thresholds
+  alert_thresholds:
+    processing_time: 30.0
+    error_rate: 0.05
+    quality_drop: 0.2
+    memory_usage: 0.8
+  
+  # Metrics Tracking
+  metrics:
+    track_throughput: true
+    track_quality_scores: true
+    track_model_utilization: true
+    track_processing_time: true
+
+storage:
+  # Storage Configuration
+  enable_vector_storage: true
+  storage_format: "numpy"
+  compression_enabled: true
+  
+  # Index Configuration
+  index_type: "hnsw"
+  index_parameters:
+    m: 16
+    ef_construction: 200
+    ef_search: 50
+
+development:
+  # Development Settings
+  debug_mode: false
+  verbose_logging: false
+  mock_external_services: true
+  enable_profiling: false
+  
+  # Testing Configuration
+  test_data:
+    sample_urls_count: 25
+    mutual_fund_urls: 20
+    financial_news_urls: 5
+    content_length_range: [500, 2000]
+  
+  # Performance Testing
+  performance_test:
+    enable_load_testing: false
+    load_test_duration: 300.0
+    concurrent_requests: 10

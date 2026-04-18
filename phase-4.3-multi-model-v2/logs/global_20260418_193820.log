@@ -1,0 +1,12 @@
+2026-04-18 19:38:20 | INFO     | LocalScheduler | __init__:75 | Local Scheduler Logger initialized - Log file: logs\scheduler_run_20260418_193820.log
+2026-04-18 19:38:20 | INFO     | utils.env_loader | _load_env_file:35 | Loaded environment variables from C:\Users\LENOVO\Desktop\2nd LIP\phase-4.3-multi-model-v2\.env
+2026-04-18 19:38:20 | INFO     | simple_chroma_cloud | __init__:101 | Connected to Chroma Cloud at https://api.trychroma.com
+2026-04-18 19:38:20 | INFO     | simple_chroma_cloud | __init__:102 | Tenant: default, Database: mutual-funds-db
+2026-04-18 19:38:20 | INFO     | simple_chroma_cloud | __init__:103 | API Key: ***9kXM
+2026-04-18 19:38:20 | INFO     | simple_chroma_cloud | __init__:203 | Chroma Cloud manager initialized successfully
+2026-04-18 19:38:20 | INFO     | simple_chroma_cloud | __init__:101 | Connected to Chroma Cloud at https://api.trychroma.com
+2026-04-18 19:38:20 | INFO     | simple_chroma_cloud | __init__:102 | Tenant: default, Database: mutual-funds-db
+2026-04-18 19:38:20 | INFO     | simple_chroma_cloud | __init__:103 | API Key: ***9kXM
+2026-04-18 19:38:20 | INFO     | simple_chroma_cloud | __init__:203 | Chroma Cloud manager initialized successfully
+2026-04-18 19:38:20 | INFO     | utils.env_loader | _load_env_file:35 | Loaded environment variables from C:\Users\LENOVO\Desktop\2nd LIP\phase-4.3-multi-model-v2\.env
+2026-04-18 19:38:20 | INFO     | utils.env_loader | _load_env_file:35 | Loaded environment variables from C:\Users\LENOVO\Desktop\2nd LIP\phase-4.3-multi-model-v2\.env

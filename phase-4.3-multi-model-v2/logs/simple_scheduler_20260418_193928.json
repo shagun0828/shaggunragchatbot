@@ -1,0 +1,38 @@
+[
+  {
+    "timestamp": "2026-04-18T19:39:29.063149",
+    "event": "system_info",
+    "info": {
+      "platform": "Windows-10-10.0.19045-SP0",
+      "python_version": "3.14.3",
+      "timestamp": "2026-04-18T19:39:29.062782"
+    }
+  },
+  {
+    "timestamp": "2026-04-18T19:39:29.063888",
+    "event": "environment",
+    "config": {
+      "chroma_enabled": false,
+      "chroma_tenant": "default",
+      "chroma_database": "mutual-funds-db",
+      "openai_enabled": false,
+      "embedding_model": "N/A",
+      "timestamp": "2026-04-18T19:39:29.063374"
+    }
+  },
+  {
+    "timestamp": "2026-04-18T19:39:29.064195",
+    "event": "phase_start",
+    "phase": "health_check",
+    "metrics": {}
+  },
+  {
+    "timestamp": "2026-04-18T19:39:29.064932",
+    "event": "phase_end",
+    "phase": "health_check",
+    "status": "failed",
+    "duration": 0.0007381439208984375,
+    "metrics": {},
+    "error": "'HealthChecker' object has no attribute 'check_all_components'"
+  }
+]

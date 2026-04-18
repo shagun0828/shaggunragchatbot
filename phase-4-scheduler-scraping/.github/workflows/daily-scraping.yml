@@ -1,0 +1,90 @@
+name: Daily Mutual Fund Scraping
+
+on:
+  schedule:
+    # Runs daily at 9:15 AM IST (3:45 AM UTC)
+    - cron: '45 3 * * *'
+  workflow_dispatch: # Allow manual triggering
+    inputs:
+      force_run:
+        description: 'Force run even if already executed today'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  scrape-mutual-funds:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Create data directory
+      run: mkdir -p data/raw data/processed data/embeddings
+      
+    - name: Run scraping service
+      env:
+        GROWW_BASE_URL: https://groww.in
+        VECTOR_DB_URL: ${{ secrets.VECTOR_DB_URL }}
+        VECTOR_DB_API_KEY: ${{ secrets.VECTOR_DB_API_KEY }}
+        NOTIFICATION_WEBHOOK: ${{ secrets.NOTIFICATION_WEBHOOK }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        ENVIRONMENT: production
+      run: |
+        python -m src.main
+        
+    - name: Validate scraped data
+      run: |
+        python -c "
+        import json
+        import os
+        from pathlib import Path
+        
+        data_dir = Path('data/processed')
+        if not data_dir.exists():
+            raise Exception('No processed data found')
+            
+        files = list(data_dir.glob('*.json'))
+        if not files:
+            raise Exception('No JSON files found in processed data')
+            
+        print(f'Found {len(files)} processed files')
+        for file in files:
+            with open(file) as f:
+                data = json.load(f)
+                print(f'{file.name}: {len(data)} records')
+        "
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: scraped-data-${{ github.run_number }}
+        path: data/
+        retention-days: 7
+        
+    - name: Send notification
+      if: always()
+      run: |
+        if [ "${{ job.status }}" = "success" ]; then
+          curl -X POST "${{ secrets.NOTIFICATION_WEBHOOK }}" \
+            -H 'Content-Type: application/json' \
+            -d "{\"text\":\"\"\"Daily mutual fund scraping completed successfully! Run #${{ github.run_number }}\"\"\"}"
+        else
+          curl -X POST "${{ secrets.NOTIFICATION_WEBHOOK }}" \
+            -H 'Content-Type: application/json' \
+            -d "{\"text\":\"\"\"Daily mutual fund scraping FAILED! Run #${{ github.run_number }}\"\"\"}"
+        fi

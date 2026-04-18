@@ -1,0 +1,59 @@
+[
+  {
+    "timestamp": "2026-04-18T19:41:04.309308",
+    "event": "system_info",
+    "info": {
+      "platform": "Windows-10-10.0.19045-SP0",
+      "python_version": "3.14.3",
+      "timestamp": "2026-04-18T19:41:04.308864"
+    }
+  },
+  {
+    "timestamp": "2026-04-18T19:41:04.310145",
+    "event": "environment",
+    "config": {
+      "chroma_enabled": false,
+      "chroma_tenant": "default",
+      "chroma_database": "mutual-funds-db",
+      "openai_enabled": false,
+      "embedding_model": "N/A",
+      "timestamp": "2026-04-18T19:41:04.309544"
+    }
+  },
+  {
+    "timestamp": "2026-04-18T19:41:04.310508",
+    "event": "phase_start",
+    "phase": "health_check",
+    "metrics": {}
+  },
+  {
+    "timestamp": "2026-04-18T19:41:04.318259",
+    "event": "phase_end",
+    "phase": "health_check",
+    "status": "completed",
+    "duration": 0.007753133773803711,
+    "metrics": {
+      "overall_health": "unknown",
+      "overall_health_score": 75.0,
+      "components_checked": 4,
+      "healthy_components": 3,
+      "unhealthy_components": 1
+    },
+    "error": null
+  },
+  {
+    "timestamp": "2026-04-18T19:41:04.319002",
+    "event": "phase_start",
+    "phase": "data_ingestion",
+    "metrics": {}
+  },
+  {
+    "timestamp": "2026-04-18T19:41:04.319957",
+    "event": "phase_end",
+    "phase": "data_ingestion",
+    "status": "failed",
+    "duration": 0.0009591579437255859,
+    "metrics": {},
+    "error": "'DailyIngestPipeline' object has no attribute 'run_complete_pipeline'"
+  }
+]

@@ -1,0 +1,144 @@
+{
+  "report_metadata": {
+    "generated_at": "2026-04-18T19:07:21.066645",
+    "report_date": "2026-04-18",
+    "report_type": "daily_ingest_pipeline",
+    "version": "1.0"
+  },
+  "pipeline_execution": {
+    "status": "completed",
+    "run_date": "2026-04-18",
+    "run_id": "unknown",
+    "configuration": {
+      "dry_run": false,
+      "test_mode": false,
+      "force_run": false
+    },
+    "scraping_results": {
+      "urls_attempted": 25,
+      "urls_scraped": 17,
+      "scraping_time": 2.1092827320098877,
+      "scraping_errors": 0
+    },
+    "chunking_results": {
+      "chunks_created": 193,
+      "chunking_time": 0.5409500598907471,
+      "avg_chunk_size": 15725.062176165804
+    },
+    "upload_results": {
+      "status": "success",
+      "total_urls": 193,
+      "total_chunks": 579,
+      "total_embeddings": 579,
+      "processing_time": 1.1901795864105225,
+      "cloud_results": {
+        "status": "completed",
+        "total_uploads": 579,
+        "upload_results": {
+          "bge_base": {
+            "status": "success",
+            "collection_id": "collection_mutual_funds_v1_22738408",
+            "documents_uploaded": 60,
+            "collection_name": "mutual_funds_v1"
+          },
+          "bge_small": {
+            "status": "success",
+            "collection_id": "collection_financial_news_v1_9d6bf1c7",
+            "documents_uploaded": 519,
+            "collection_name": "financial_news_v1"
+          }
+        }
+      },
+      "model_distribution": {
+        "bge_base_urls": 20,
+        "bge_small_urls": 5,
+        "bge_base_chunks": 60,
+        "bge_small_chunks": 519
+      }
+    },
+    "metrics": {
+      "start_time": 1776519368.9492264,
+      "end_time": 0.0,
+      "total_duration": 0.0,
+      "urls_scraped": 17,
+      "scraping_time": 2.1092827320098877,
+      "scraping_errors": 0,
+      "chunks_created": 193,
+      "chunking_time": 0.5409500598907471,
+      "avg_chunk_size": 15725.062176165804,
+      "embeddings_created": 579,
+      "embedding_time": 1.1910059452056885,
+      "bge_base_embeddings": 60,
+      "bge_small_embeddings": 519,
+      "documents_uploaded": 579,
+      "upload_time": 1.1910059452056885,
+      "collections_updated": 2,
+      "upload_errors": 0,
+      "total_urls_processed": 17,
+      "pipeline_efficiency": 4.4245038278915185,
+      "error_count": 0
+    },
+    "timestamp": 1776519372.7921548
+  },
+  "chroma_verification": {
+    "mutual_funds_v1": {
+      "status": "verified",
+      "document_count": 0,
+      "recent_documents": 0,
+      "created_at": 1776519381.9502954
+    },
+    "financial_news_v1": {
+      "status": "verified",
+      "document_count": 0,
+      "recent_documents": 0,
+      "created_at": 1776519381.988398
+    },
+    "overall": {
+      "status": "completed",
+      "health_status": "healthy",
+      "total_documents": 0,
+      "collections": [
+        "mutual_funds_v1",
+        "financial_news_v1"
+      ],
+      "search_test": {
+        "status": "success",
+        "results_found": 0,
+        "sample_distances": []
+      },
+      "verification_date": "2026-04-18"
+    }
+  },
+  "summary": {
+    "overall_status": "completed",
+    "pipeline_efficiency": "good",
+    "data_quality": "good",
+    "chroma_cloud_status": "connected",
+    "key_achievements": [
+      "Pipeline completed successfully",
+      "Scraped 17 URLs successfully",
+      "Created 193 chunks",
+      "Uploaded 579 documents to Chroma Cloud"
+    ],
+    "issues_identified": []
+  },
+  "recommendations": [
+    "Review scraping sources - low success rate",
+    "Chunks are too large - consider decreasing chunk size target"
+  ],
+  "quality_metrics": {
+    "scraping_success_rate": 68.0,
+    "chunk_quality_score": 40,
+    "upload_success_rate": 100,
+    "overall_quality_score": 69.2
+  },
+  "performance_metrics": {
+    "scraping_throughput": 8.059611801686295,
+    "chunking_throughput": 356.77969984693084,
+    "upload_throughput": 486.4812055348835,
+    "scraping_time_percentage": 0,
+    "chunking_time_percentage": 0,
+    "upload_time_percentage": 0,
+    "overall_throughput": 0
+  }
+}

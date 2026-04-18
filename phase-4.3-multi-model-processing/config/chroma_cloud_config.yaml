@@ -1,0 +1,274 @@
+# Chroma Cloud Configuration for Phase 4.3
+# Integration with trychroma.com for cloud-based vector storage
+
+chroma_cloud:
+  # Chroma Cloud Connection Settings
+  api_key: "${CHROMA_API_KEY}"
+  tenant: "default"
+  database: "mutual-funds-db"
+  host: "https://api.trychroma.com"
+  
+  # Collection Configuration
+  collections:
+    mutual_funds: "mutual_funds_v1"
+    financial_news: "financial_news_v1"
+    market_data: "market_data_v1"
+    bge_base_embeddings: "bge_base_embeddings"
+    bge_small_embeddings: "bge_small_embeddings"
+  
+  # Upload Settings
+  upload_settings:
+    batch_size: 100
+    max_retries: 3
+    timeout: 30.0
+    retry_delay: 1.0
+    enable_parallel_upload: true
+    max_concurrent_uploads: 2
+  
+  # Index Configuration
+  indexing:
+    index_type: "hnsw"
+    ef_construction: 200
+    ef_search: 50
+    m: 16
+    space: "cosine"
+  
+  # Performance Settings
+  performance:
+    enable_caching: true
+    cache_size: 1000
+    compression_enabled: true
+    connection_pool_size: 10
+    request_timeout: 60.0
+  
+  # Monitoring and Health
+  monitoring:
+    enable_health_checks: true
+    health_check_interval: 300.0
+    enable_metrics_collection: true
+    log_upload_performance: true
+  
+  # Security Settings
+  security:
+    enable_ssl: true
+    verify_ssl: true
+    api_key_rotation_days: 90
+    enable_audit_logging: true
+
+multi_model:
+  # Multi-Model Processor Configuration
+  enable_parallel_processing: true
+  max_concurrent_models: 2
+  quality_threshold: 0.7
+  enable_model_comparison: true
+  enable_cloud_upload: true
+  cloud_upload_batch_size: 50
+  
+  # Model Limits
+  model_limits:
+    bge_base_max_urls: 20
+    bge_small_max_urls: 5
+    total_capacity: 25
+  
+  # Collection Mapping
+  collection_mapping:
+    bge_base: "mutual_funds_v1"
+    bge_small: "financial_news_v1"
+
+bge_base:
+  # BGE-base Configuration (for 20 URLs)
+  model_name: "bge-base-en-v1.5"
+  max_urls: 20
+  batch_size: 16
+  quality_threshold: 0.8
+  dimension: 768
+  
+  # Processing Configuration
+  enhancement_enabled: true
+  normalization_enabled: true
+  cache_embeddings: true
+  memory_limit_mb: 2048
+  
+  # Cloud Upload Settings
+  cloud_upload:
+    enabled: true
+    collection: "mutual_funds_v1"
+    batch_size: 50
+    metadata_enrichment: true
+
+bge_small:
+  # BGE-small Configuration (for 5 URLs)
+  model_name: "bge-small-en-v1.5"
+  max_urls: 5
+  batch_size: 32
+  quality_threshold: 0.7
+  dimension: 384
+  
+  # Processing Configuration
+  enhancement_enabled: true
+  normalization_enabled: true
+  cache_embeddings: true
+  memory_limit_mb: 1024
+  fast_mode: true
+  
+  # Cloud Upload Settings
+  cloud_upload:
+    enabled: true
+    collection: "financial_news_v1"
+    batch_size: 100
+    metadata_enrichment: true
+
+router:
+  # URL Model Router Configuration
+  enable_caching: true
+  cache_size: 1000
+  default_model: "bge_small"
+  
+  # Complexity Thresholds
+  complexity_thresholds:
+    low: 0.3
+    medium: 0.6
+    high: 0.8
+  
+  # URL Patterns for Chroma Cloud Collections
+  url_patterns:
+    mutual_fund:
+      - "groww\\.in/mutual-funds"
+      - "moneycontrol\\.com/mutual-funds"
+      - "valueresearchonline\\.com/funds"
+      - "morningstar\\.in/funds"
+      collection: "mutual_funds_v1"
+    
+    financial_news:
+      - "economictimes\\.indiatimes\\.com"
+      - "livemint\\.com"
+      - "business-standard\\.com"
+      - "financial-express\\.com"
+      collection: "financial_news_v1"
+    
+    stock_market:
+      - "nseindia\\.com"
+      - "bseindia\\.com"
+      - "moneycontrol\\.com/stock-price"
+      - "economicstimes\\.com/markets"
+      collection: "market_data_v1"
+    
+    company_data:
+      - "annualreports\\.com"
+      - "investor\\.bseindia\\.com"
+      - "nseindia\\.com/companies"
+      - "rbi\\.org\\.in"
+      collection: "company_data_v1"
+
+processing:
+  # Processing Configuration
+  enable_async_processing: true
+  max_concurrent_batches: 4
+  batch_timeout: 300.0
+  retry_attempts: 3
+  retry_delay: 1.0
+  
+  # Quality Control
+  quality_control:
+    enable_quality_assessment: true
+    min_quality_score: 0.6
+    enable_auto_fix: true
+    quality_thresholds:
+      excellent: 0.9
+      good: 0.7
+      acceptable: 0.5
+      poor: 0.3
+  
+  # Cloud Integration
+  cloud_integration:
+    enable_real_time_upload: false
+    upload_after_processing: true
+    batch_upload_interval: 60.0
+    enable_upload_verification: true
+
+monitoring:
+  # Monitoring Configuration
+  enable_performance_monitoring: true
+  metrics_collection_interval: 5.0
+  enable_alerts: true
+  
+  # Alert Thresholds
+  alert_thresholds:
+    processing_time: 30.0
+    error_rate: 0.05
+    quality_drop: 0.2
+    memory_usage: 0.8
+    cloud_upload_time: 60.0
+    cloud_connection_failures: 3
+  
+  # Metrics Tracking
+  metrics:
+    track_throughput: true
+    track_quality_scores: true
+    track_model_utilization: true
+    track_processing_time: true
+    track_cloud_uploads: true
+    track_cloud_latency: true
+
+storage:
+  # Storage Configuration
+  enable_vector_storage: true
+  storage_type: "chroma_cloud"
+  storage_format: "numpy"
+  compression_enabled: true
+  
+  # Cloud Storage Settings
+  cloud_storage:
+    provider: "chroma_cloud"
+    endpoint: "https://api.trychroma.com"
+    authentication: "api_key"
+    backup_enabled: true
+    backup_interval: 3600.0  # 1 hour
+    
+  # Index Configuration
+  index_type: "hnsw"
+  index_parameters:
+    m: 16
+    ef_construction: 200
+    ef_search: 50
+
+development:
+  # Development Settings
+  debug_mode: false
+  verbose_logging: false
+  mock_chroma_cloud: false
+  enable_profiling: false
+  
+  # Testing Configuration
+  test_data:
+    sample_urls_count: 25
+    mutual_fund_urls: 20
+    financial_news_urls: 5
+    content_length_range: [500, 2000]
+    mock_cloud_uploads: true
+  
+  # Performance Testing
+  performance_test:
+    enable_load_testing: false
+    load_test_duration: 300.0
+    concurrent_requests: 10
+    cloud_load_test: false
+
+environment:
+  # Environment Variables
+  required_env_vars:
+    - "CHROMA_API_KEY"
+    - "CHROMA_TENANT"
+    - "CHROMA_DATABASE"
+  
+  optional_env_vars:
+    - "CHROMA_HOST"
+    - "CHROMA_REGION"
+    - "CHROMA_LOG_LEVEL"
+  
+  # Default Values
+  defaults:
+    CHROMA_HOST: "https://api.trychroma.com"
+    CHROMA_TENANT: "default"
+    CHROMA_DATABASE: "mutual-funds-db"
+    CHROMA_LOG_LEVEL: "INFO"
