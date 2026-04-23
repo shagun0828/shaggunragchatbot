@@ -9,11 +9,11 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'http://localhost:8000/api/:path*',
+        destination: 'https://rag-backend.onrender.com/api/:path*',
       },
       {
         source: '/ws',
-        destination: 'ws://localhost:8000/ws',
+        destination: 'wss://rag-backend.onrender.com/ws',
       },
     ],
   },
