@@ -15,16 +15,14 @@ export function Header({ onSidebarToggle, activeView }: HeaderProps) {
   const [isOnline, setIsOnline] = useState(true)
   const [notifications, setNotifications] = useState(3)
   const [searchQuery, setSearchQuery] = useState('')
-  const [isDarkMode, setIsDarkMode] = useState(true)
-
+  const [isDarkMode, setIsDarkMode] = useState(false)
   useEffect(() => {
-    // Simulate connection status monitoring
-    const interval = setInterval(() => {
-      setIsOnline(prev => Math.random() > 0.1) // 90% uptime simulation
-    }, 5000)
-
-    return () => clearInterval(interval)
-  }, [])
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [isDarkMode])
 
   const getViewTitle = () => {
     switch (activeView) {
