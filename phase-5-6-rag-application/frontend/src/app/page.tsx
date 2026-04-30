@@ -18,7 +18,7 @@ export default function Home() {
             onClick={() => setShowApp(false)}
             className="font-semibold text-primary text-lg"
           >
-            RAG Assistant
+            NovaDocs
           </button>
           <div className="flex gap-1 ml-4">
             {(['chat', 'search', 'dashboard'] as const).map((view) => (
@@ -26,8 +26,8 @@ export default function Home() {
                 key={view}
                 onClick={() => setActiveView(view)}
                 className={`px-4 py-1.5 rounded-full text-sm capitalize transition-all ${activeView === view
-                    ? 'bg-primary text-primary-foreground'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                   }`}
               >
                 {view}
@@ -50,7 +50,7 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       {/* Floating Navbar */}
       <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-card/90 backdrop-blur border border-border rounded-full px-6 py-2.5 flex items-center gap-6 shadow-sm">
-        <span className="font-bold text-foreground text-sm">RAG Assistant</span>
+        <span className="font-bold text-foreground text-sm">NovaDocs</span>
         <nav className="flex items-center gap-5 text-sm text-muted-foreground">
           <a href="#features" className="hover:text-foreground transition-colors">Features</a>
           <a href="#how" className="hover:text-foreground transition-colors">How it works</a>
@@ -75,7 +75,7 @@ export default function Home() {
           <span className="text-primary">Your Questions</span>
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
-          Ask anything about your documents — powered by RAG AI with verified citations from official sources.
+          Ask anything about your documents — powered by NovaDocs AI with verified citations from official sources.
         </p>
         <div className="flex items-center justify-center gap-4">
           <button
@@ -204,7 +204,7 @@ export default function Home() {
             onClick={() => setShowApp(true)}
             className="bg-primary text-primary-foreground px-10 py-3.5 rounded-full font-medium hover:opacity-90 transition-opacity"
           >
-            Open RAG Assistant →
+            Open NovaDocs →
           </button>
         </div>
       </section>
