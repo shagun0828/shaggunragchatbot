@@ -4,48 +4,48 @@
 
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 84% 4.9%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --background: 340 30% 97%;
+    --foreground: 280 20% 25%;
+    --card: 0 0% 100%;
+    --card-foreground: 280 20% 25%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 280 20% 25%;
+    --primary: 330 60% 75%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 200 50% 88%;
+    --secondary-foreground: 200 30% 30%;
+    --muted: 150 30% 90%;
+    --muted-foreground: 200 20% 45%;
+    --accent: 150 40% 80%;
+    --accent-foreground: 150 30% 25%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 94.1%;
-    --radius: 0.5rem;
+    --border: 300 20% 88%;
+    --input: 300 20% 88%;
+    --ring: 330 60% 75%;
+    --radius: 0.75rem;
   }
 
-  .light {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
-    --destructive: 0 84.2% 60.2%;
+  .dark {
+    --background: 280 25% 12%;
+    --foreground: 310 30% 92%;
+    --card: 280 22% 16%;
+    --card-foreground: 310 30% 92%;
+    --popover: 280 22% 16%;
+    --popover-foreground: 310 30% 92%;
+    --primary: 330 55% 70%;
+    --primary-foreground: 280 25% 12%;
+    --secondary: 200 35% 30%;
+    --secondary-foreground: 200 50% 88%;
+    --muted: 280 20% 22%;
+    --muted-foreground: 300 15% 65%;
+    --accent: 150 35% 28%;
+    --accent-foreground: 150 40% 80%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 280 20% 28%;
+    --input: 280 20% 28%;
+    --ring: 330 55% 70%;
   }
 }
 
@@ -53,30 +53,91 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 }
 
-@layer components {
-  .glass-morphism {
-    @apply backdrop-blur-lg bg-opacity-10 border border-opacity-20;
+@layer utilities {
+  .pastel-pink {
+    background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
   }
-  
-  .gradient-text {
-    @apply bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent;
+
+  .pastel-blue {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
   }
-  
-  .neon-glow {
-    @apply shadow-lg shadow-blue-500/50;
+
+  .pastel-green {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
   }
-  
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 182, 213, 0.3);
+    box-shadow: 0 4px 24px rgba(236, 158, 189, 0.1);
   }
-  
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
+
+  .chat-bubble-user {
+    background: linear-gradient(135deg, #f48fb1 0%, #f06292 100%);
+    color: white;
+    border-radius: 18px 18px 4px 18px;
+  }
+
+  .chat-bubble-ai {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(200, 230, 201, 0.5);
+    border-radius: 18px 18px 18px 4px;
+  }
+
+  .sidebar-gradient {
+    background: linear-gradient(180deg, #fce4ec 0%, #e8f5e9 50%, #e3f2fd 100%);
+  }
+
+  .input-pastel {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1.5px solid rgba(244, 143, 177, 0.4);
+    border-radius: 24px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .input-pastel:focus {
+    border-color: #f48fb1;
+    box-shadow: 0 0 0 3px rgba(244, 143, 177, 0.15);
+    outline: none;
+  }
+
+  .btn-pastel-pink {
+    background: linear-gradient(135deg, #f48fb1 0%, #ec407a 100%);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .btn-pastel-pink:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(236, 64, 122, 0.3);
+  }
+
+  .source-card {
+    background: linear-gradient(135deg, rgba(232, 245, 233, 0.8) 0%, rgba(187, 222, 251, 0.8) 100%);
+    border: 1px solid rgba(165, 214, 167, 0.4);
+    border-radius: 12px;
+  }
+
+  .scrollbar-pastel::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-pastel::-webkit-scrollbar-track {
+    background: rgba(252, 228, 236, 0.3);
+  }
+
+  .scrollbar-pastel::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #f48fb1, #81d4fa);
+    border-radius: 3px;
   }
 }
