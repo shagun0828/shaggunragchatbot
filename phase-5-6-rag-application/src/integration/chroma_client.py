@@ -10,14 +10,7 @@ from typing import List, Dict, Any, Optional, Tuple
 import aiohttp
 import json
 from datetime import datetime
-
-# Import from Phase 4.3 for Chroma Cloud integration
-import sys
-from pathlib import Path
-sys.path.append(str(Path(__file__).parent.parent.parent / "phase-4.3-multi-model-v2" / "src"))
-from simple_chroma_cloud import ChromaCloudManager
-
-
+import chromadb
 class ChromaClient:
     """Chroma client for vector database operations"""
     
