@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Send, Mic, Paperclip, Smile, MoreVertical, ThumbsUp, ThumbsDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { Timestamp } from '@/components/ui/timestamp'
 import { cn } from '@/lib/utils'
 
 interface Message {
@@ -34,7 +35,7 @@ export function ChatInterface() {
   const [isTyping, setIsTyping] = useState(false)
   const [isConnected, setIsConnected] = useState(true)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLTextAreaElement>(null)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -147,9 +148,10 @@ export function ChatInterface() {
                   )}
                   
                   <div className="flex items-center justify-between mt-3 pt-2 border-t border-border">
-                    <div className="text-xs text-muted-foreground">
-                      {new Date(message.timestamp * 1000).toLocaleTimeString()}
-                    </div>
+                    <Timestamp 
+                      timestamp={message.timestamp} 
+                      className="text-xs text-muted-foreground" 
+                    />
                     
                     {message.type === 'assistant' && (
                       <div className="flex items-center space-x-2">

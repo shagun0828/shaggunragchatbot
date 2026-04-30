@@ -38,8 +38,8 @@ export function debounce<T extends (...args: any[]) => any>(
 }
 
 export function calculateSimilarity(text1: string, text2: string): number {
-  const words1 = text1.toLowerCase().split()
-  const words2 = text2.toLowerCase().split()
+  const words1 = text1.toLowerCase().split(/\s+/)
+  const words2 = text2.toLowerCase().split(/\s+/)
   const intersection = words1.filter(word => words2.includes(word))
   const union = [...new Set([...words1, ...words2])]
   return intersection.length / union.length

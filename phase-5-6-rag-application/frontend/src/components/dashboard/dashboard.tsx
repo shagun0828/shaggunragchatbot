@@ -18,6 +18,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { Timestamp } from '@/components/ui/timestamp'
 import { cn } from '@/lib/utils'
 
 interface MetricCard {
@@ -339,7 +340,7 @@ export function Dashboard() {
                           <div>
                             <p className="text-sm text-foreground">{alert.message}</p>
                             <p className="text-xs text-muted-foreground">
-                              {alert.component} · {new Date(alert.timestamp * 1000).toLocaleTimeString()}
+                              {alert.component} · <Timestamp timestamp={alert.timestamp} />
                             </p>
                           </div>
                         </div>

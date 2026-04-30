@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'rag-backend.onrender.com'],
   },
   async rewrites() {
     return [
@@ -11,12 +11,8 @@ const nextConfig = {
         source: '/api/:path*',
         destination: 'https://rag-backend.onrender.com/api/:path*',
       },
-      {
-        source: '/ws',
-        destination: 'wss://rag-backend.onrender.com/ws',
-      },
-    ],
+    ];
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
