@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Phase 5-6 RAG Application',
-  description: 'Advanced RAG system with multi-modal capabilities, real-time processing, and personalization',
+  title: 'RAG Chatbot | AI-Powered Knowledge Assistant',
+  description: 'Get instant answers from your documents powered by RAG AI',
 }
 
 export default function RootLayout({
@@ -15,11 +15,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <div className="min-h-screen bg-background font-sans antialiased">
-          {children}
-        </div>
+        {children}
       </body>
     </html>
   )
