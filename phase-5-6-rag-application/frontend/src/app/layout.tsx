@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'NovaDocs | AI-Powered Document Intelligence',
-  description: 'NovaDocs - Instant Verified Answers',
+  title: 'NovaDocs | AI Mutual Fund Intelligence',
+  description: 'Instant sourced answers to all your mutual fund questions — SIP, NAV, ELSS, expense ratios and more.',
 }
 
 export default function RootLayout({
